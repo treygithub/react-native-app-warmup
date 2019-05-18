@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,ScrollView } from 'react-native';
 
 export default class App extends Component {
   constructor(props) {
@@ -31,17 +31,22 @@ export default class App extends Component {
     })
   }
 
-  render() {
+  funFunFunction = () => {
     const listOfUserInputs = this.state.list.map( (e,i) =>(
       <TouchableOpacity onPress={ ()=> this.handleDelete(i) }>
-        <View>
+        <View style={styles.scroll}>
           <Text id={i}  key={i * 10}> {e} </Text>
         </View>
       </TouchableOpacity>
     ));
+    return <ScrollView>{listOfUserInputs}</ScrollView>
+  }
+
+  render() {
+    
     return (
       <View style={styles.container}>
-        <View >
+        <View style={styles.blahh} >
           <TextInput
             style={styles.inputText}
             onChangeText={this.handleChange}
@@ -49,7 +54,7 @@ export default class App extends Component {
           />
           <Button onPress={this.handlePress} title="Add"/>
         </View>
-        {listOfUserInputs}
+        {this.funFunFunction()}
       </View>
     );
   }
@@ -66,5 +71,12 @@ const styles = StyleSheet.create({
     height: 40, 
     borderColor: 'red', 
     borderWidth: 1,
+  },
+  scroll:{
+    padding:10,
+    fontSize:15,
+  },
+  blahh:{
+    marginTop:80,
   },
 });
