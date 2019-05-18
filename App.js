@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View,TextInput,Button } from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity } from 'react-native';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
       text: 'Useless Placeholder',
-      hshs:[] 
+      list:[] 
     };
   }
   handleChange = (value) => {
@@ -18,25 +18,45 @@ export default class App extends Component {
   handlePress = () => {
     this.setState(prevState => {
       return{
-      hshs: prevState.hshs.concat(prevState.text)
+      list: prevState.list.concat(prevState.text)
       };
     });
   };
+
+checkAd = (id) => {
+  return id !== this.state.list.id
+}
+
+  /*handleDelete=(id)=>{
+    let filterResult = this.state.list.filter(e => {
+      return (
+        e !== id
+      );
+    })
+    this.setState( ()=>{
+      return { list : filterResult }
+    })
+  }*/
+
   render() {
-    const ggg = this.state.hshs.map( e =>(
-      <Text>{e}</Text>
+    const listOfUserInputs = this.state.list.map( (e,i) =>(
+      <TouchableOpacity onPress={ ()=> alert("ID is " + i) }>
+        <View>
+          <Text id={i}  key={i * 10}> {e} </Text>
+        </View>
+      </TouchableOpacity>
     ));
     return (
       <View style={styles.container}>
-      <View >
-      <TextInput
-        style={styles.inputText}
-        onChangeText={this.handleChange}
-        value={this.state.text}
-      />
-      <Button onPress={this.handlePress} title="Add"/>
-      </View>
-      {ggg}
+        <View >
+          <TextInput
+            style={styles.inputText}
+            onChangeText={this.handleChange}
+            value={this.state.text}
+          />
+          <Button onPress={this.handlePress} title="Add"/>
+        </View>
+        {listOfUserInputs}
       </View>
     );
   }
