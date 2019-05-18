@@ -23,24 +23,17 @@ export default class App extends Component {
     });
   };
 
-checkAd = (id) => {
-  return id !== this.state.list.id
-}
-
-  /*handleDelete=(id)=>{
-    let filterResult = this.state.list.filter(e => {
-      return (
-        e !== id
-      );
+  handleDelete=(id)=>{
+    this.setState( (prevState)=>{
+      return { list : prevState.list.filter((e,i) => {
+        return i !== id
+     }) }
     })
-    this.setState( ()=>{
-      return { list : filterResult }
-    })
-  }*/
+  }
 
   render() {
     const listOfUserInputs = this.state.list.map( (e,i) =>(
-      <TouchableOpacity onPress={ ()=> alert("ID is " + i) }>
+      <TouchableOpacity onPress={ ()=> this.handleDelete(i) }>
         <View>
           <Text id={i}  key={i * 10}> {e} </Text>
         </View>
